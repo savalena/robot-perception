@@ -11,7 +11,7 @@ class Motor(pyiArduinoI2Cexpander):
         super(pyiArduinoI2Cexpander, self).__init__(0x08)
         self.V = 0.142  # m/sec
         self.w_right = -0.837  # rad/sec
-        self.w_left = 0.897
+        self.w_left =  0.68 #0.897
         self.LEFT_CONST = 1515
         self.RIGHT_CONST = 1415
         self.PIN_LEFT = pin_left
@@ -33,17 +33,15 @@ class Motor(pyiArduinoI2Cexpander):
         self.servoWriteMicroseconds(self.PIN_LEFT, self.LEFT_CONST)
         self.servoWriteMicroseconds(self.PIN_RIGHT, self.RIGHT_CONST)
 
-    def move_forward(self, meters):
+    def move_forward(self):
         print("move forward")
-        self.set_speed(10, 10)
-        # time.sleep(t)
-        # self.stop()
+        self.set_speed(9.8, 10)
 
-    def turn_left(self, rads):
+    def turn_left(self):
         print("move left")
         self.set_speed(0, 10)
 
-    def turn_right(self, rads):
+    def turn_right(self):
         print("move right")
         self.set_speed(10, 0)
 
