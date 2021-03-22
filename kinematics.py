@@ -81,7 +81,7 @@ class Motor(pyiArduinoI2Cexpander):
 
     def stop(self):
         self.servoWriteMicroseconds(self.PIN_LEFT, self.LEFT_CONST)
-        self.servoWriteMicroseconds(self.PIN_RIGHT, self.RIGHT_CONST)
+        self.servoWriteMicroseconds(self.PIN_RIGHT, self.R)
 
 
 if __name__ == '__main__':
