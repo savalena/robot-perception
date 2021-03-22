@@ -6,24 +6,37 @@ from kinematics import Motor, MobilePlatform
 import numpy as np
 import time
 
-if __name__ == 'main':
-    # init classes
-    robot = MobilePlatform()
-    motors = Motor()
+# init classes
+robot = MobilePlatform()
+motors = Motor()
 
-    # move forward
-    om_l, om_r = robot.inverted_kin(robot.FULL_SPEED, 0)
-    motors.set_speed(om_l, om_r)
-    time.sleep(2)
+# move forward
+#print("move forward")
+#om_l = 10
+#om_r = 10
+#motors.set_speed(om_l, om_r)
+#time.sleep(2)
 
-    motors.stop()
+#print("stop")
+#motors.stop()
 
-    # rotate left
-    # om_l, om_r = robot.left_rotation(0.1)
-    # motors.set_speed(om_l, om_r)
-    # time.sleep(2)
+# rotate left
+print("move left")
+#om_l, om_r = robot.left_rotation(1)
+om_l = 0
+om_r = 10
+print(om_l, om_r)
+motors.set_speed(om_l, om_r)
+time.sleep(2)
 
-    # rotate right
-    # om_l, om_r = robot.right_rotation(0.1)
-    # motors.set_speed(om_l, om_r)
-    # time.sleep(2)
+# rotate roght
+print("move right")
+#om_l, om_r = robot.left_rotation(1)
+om_l = 10
+om_r = 0
+print(om_l, om_r)
+motors.set_speed(om_l, om_r)
+time.sleep(2)
+
+print("stop")
+motors.stop()
