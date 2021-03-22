@@ -16,6 +16,8 @@ if __name__ == 'main':
     motors.set_speed(om_l, om_r)
     time.sleep(2)
 
+    motors.stop()
+
     # rotate left
     # om_l, om_r = robot.left_rotation(0.1)
     # motors.set_speed(om_l, om_r)
