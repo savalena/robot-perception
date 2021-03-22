@@ -63,7 +63,7 @@ class MobilePlatform:
 class Motor(pyiArduinoI2Cexpander):
     def __init__(self, pin_left=2, pin_right=3):
         super(pyiArduinoI2Cexpander, self).__init__(0x08)
-        self.LEFT_CONST = 1520
+        self.LEFT_CONST = 1515
         self.RIGHT_CONST = 1415
         self.PIN_LEFT = pin_left
         self.PIN_RIGHT = pin_right
