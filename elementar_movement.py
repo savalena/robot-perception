@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*-coding: utf-8 -*-
+
 from kinematics import Motor, MobilePlatform
 
 import numpy as np
