@@ -63,6 +63,9 @@ class MobilePlatform:
 class Motor(pyiArduinoI2Cexpander):
     def __init__(self, pin_left=2, pin_right=3):
         super(pyiArduinoI2Cexpander, self).__init__(0x08)
+        self.V = 0.142
+        self.w_left = 0.837
+        self.w_right = 0.897
         self.LEFT_CONST = 1515
         self.RIGHT_CONST = 1415
         self.PIN_LEFT = pin_left
@@ -83,10 +86,30 @@ class Motor(pyiArduinoI2Cexpander):
         self.servoWriteMicroseconds(self.PIN_LEFT, self.LEFT_CONST)
         self.servoWriteMicroseconds(self.PIN_RIGHT, self.R)
 
+    def move_forward(self, meters):
+        print("move forward")
+        t = meters / self.V
+        self.set_speed(10, 10)
+        time.sleep(t)
+        self.stop()
+
+    def turn_left(self, rads):
+        print("move forward")
+        t = rads / self.V
+        self.set_speed(0, 10)
+        time.sleep(t)
+        self.stop()
+
+    def turn_right(self, rads):
+        print("move forward")
+        t = rads / self.V
+        self.set_speed(10, 0)
+        time.sleep(t)
+        self.stop()
+
 
 if __name__ == '__main__':
+    ### usage ###
     motors = Motor()
-    motors.set_speed(10, 5)
-    time.sleep(5)
-    motors.set_speed(5, 10)
-    time.sleep(5)
+    motors.move_forward(1.4)
+    motors.turn_left(3.14)
