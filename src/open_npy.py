@@ -22,9 +22,9 @@ th = 0
 x = 0
 y = 0
 for i in range(1, delta_pos.shape[0]):
-    x += (delta_pos[i, 0] + delta_pos[i - 1, 0]) * np.cos(coords_th[-1])
-    y += (delta_pos[i, 0] + delta_pos[i - 1, 0]) * np.sin(coords_th[-1])
-    th += delta_pos[i, 2] + delta_pos[i - 1, 2]
+    x += (delta_pos[i, 0]) * np.cos(coords_th[-1])
+    y += (delta_pos[i, 0]) * np.sin(coords_th[-1])
+    th += delta_pos[i, 2]
     if i == 28:
         print(1)
     coords_x.append(x)
