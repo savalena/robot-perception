@@ -29,9 +29,9 @@ class Main(object):
         self.time_array = [t]
 
         self.delta_forward = t + self.motors.time_forward(meters=0.8)
-        self.delta_left = self.motors.time_right_turn(rads=np.pi / 2) + self.delta_forward
+        self.delta_left = self.motors.time_left_turn(rads=np.pi / 2) + self.delta_forward
         self.delta_forward2 = self.motors.time_forward(meters=0.2) + self.delta_left
-        self.delta_left2 = self.motors.time_right_turn(rads=np.pi / 2) + self.delta_forward2
+        self.delta_left2 = self.motors.time_left_turn(rads=np.pi / 2) + self.delta_forward2
         self.delta_forward3 = self.motors.time_forward(meters=0.3) + self.delta_left2
 
         scan_subscriber = rospy.Subscriber("/scan", LaserScan, self.scan_callback, queue_size=1)

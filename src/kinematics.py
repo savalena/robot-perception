@@ -63,14 +63,14 @@ class MobilePlatform:
 class Motor(pyiArduinoI2Cexpander):
     def __init__(self, pin_left=2, pin_right=3):
         super(pyiArduinoI2Cexpander, self).__init__(0x08)
-        self.V = 0.142 # m/sec
-        self.w_right = -0.837 # rad/sec
+        self.V = 0.142  # m/sec
+        self.w_right = -0.837  # rad/sec
         self.w_left = 0.897
         self.LEFT_CONST = 1515
         self.RIGHT_CONST = 1415
         self.PIN_LEFT = pin_left
         self.PIN_RIGHT = pin_right
-        self.scale = 1 # units / m
+        self.scale = 1  # units / m
         self.pinMode(self.PIN_LEFT, OUTPUT, SERVO)
         self.pinMode(self.PIN_RIGHT, OUTPUT, SERVO)
         self.servoAttach(self.PIN_LEFT, 1300, 1590, -100, 100)
@@ -90,8 +90,8 @@ class Motor(pyiArduinoI2Cexpander):
     def move_forward(self, meters):
         print("move forward")
         self.set_speed(10, 10)
-        #time.sleep(t)
-        #self.stop()
+        # time.sleep(t)
+        # self.stop()
 
     def turn_left(self, rads):
         print("move left")
@@ -101,15 +101,15 @@ class Motor(pyiArduinoI2Cexpander):
         print("move right")
         self.set_speed(10, 0)
 
-
     def time_forward(self, meters=1):
         return meters / (self.V * self.scale)
 
     def time_right_turn(self, rads=3.14):
-        return rads / (self.w_left * self.scale)
+        return np.fabs(rads / self.w_left)
 
     def time_left_turn(self, rads=3.14):
-        return np.fabs(rads / (self.w_right * self.scale))
+        return np.fabs(rads / self.w_right)
+
 
 if __name__ == '__main__':
     ### usage ###
