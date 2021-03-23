@@ -33,6 +33,7 @@ class Main(object):
         self.delta_forward2 = self.motors.time_forward(meters=0.2) + self.delta_left
         self.delta_left2 = self.motors.time_right_turn(rads=np.pi / 2) + self.delta_forward2
         self.delta_forward3 = self.motors.time_forward(meters=0.3) + self.delta_left2
+	rospy.loginfo(self.motors.time_forward(meters=0.8))
 
         scan_subscriber = rospy.Subscriber("/scan", LaserScan, self.scan_callback, queue_size=1)
         rospy.Timer(rospy.Duration(1. / 20), self.move_and_scan)
