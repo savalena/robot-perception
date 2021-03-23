@@ -17,7 +17,7 @@ class TF(object):
 
         rospy.Timer(rospy.Duration(1. / 20), self.tf_callback)
 
-    def tf_callback(self):
+    def tf_callback(self, event):
         t = geometry_msgs.msg.TransformStamped()
         t.header.stamp = rospy.Time.now()
         t.header.frame_id = self.robot_name
@@ -33,10 +33,11 @@ class TF(object):
 
         self.tf2_broad.sendTransform(t)
 
-try:
-    rospy.init_node('tf_node', anonymous=True)
-    pf_node = TF()
-    rospy.spin()
-except rospy.ROSInterruptException:
-    pass
+if __name__ == '__main__':
+    try:
+        rospy.init_node('tf_node', anonymous=True)
+        pf_node = TF()
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        pass
 
