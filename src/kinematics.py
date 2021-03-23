@@ -64,8 +64,8 @@ class Motor(pyiArduinoI2Cexpander):
     def __init__(self, pin_left=2, pin_right=3):
         super(pyiArduinoI2Cexpander, self).__init__(0x08)
         self.V = 0.142 # m/sec
-        self.w_left = 0.837 # rad/sec
-        self.w_right = 0.897
+        self.w_right = -0.837 # rad/sec
+        self.w_left = 0.897
         self.LEFT_CONST = 1515
         self.RIGHT_CONST = 1415
         self.PIN_LEFT = pin_left
@@ -94,18 +94,12 @@ class Motor(pyiArduinoI2Cexpander):
         #self.stop()
 
     def turn_left(self, rads):
-        print("move forward")
-        t = rads / self.w_right
+        print("move left")
         self.set_speed(0, 10)
-        # time.sleep(t)
-        # self.stop()
 
     def turn_right(self, rads):
-        print("move forward")
-        t = rads / self.w_left
+        print("move right")
         self.set_speed(10, 0)
-        # time.sleep(t)
-        # self.stop()
 
 
     def time_forward(self, meters=1):
@@ -115,7 +109,7 @@ class Motor(pyiArduinoI2Cexpander):
         return rads / (self.w_left * self.scale)
 
     def time_left_turn(self, rads=3.14):
-        return rads / (self.w_right * self.scale)
+        return np.fabs(rads / (self.w_right * self.scale))
 
 if __name__ == '__main__':
     ### usage ###
