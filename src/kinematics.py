@@ -110,7 +110,6 @@ class Motor(pyiArduinoI2Cexpander):
     def time_left_turn(self, rads=3.14):
         return np.fabs(rads / self.w_left)
 
-
 if __name__ == '__main__':
     ### usage ###
     motors = Motor()
