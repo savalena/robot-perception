@@ -18,8 +18,8 @@ class Main(object):
     def scan_callback(self, data):
         self.scan = data
         self.ranges, self.angles = self.cvt_ros_scan2points(data)
-        rospy.loginfo("ranges %s", self.ranges)
-        rospy.loginfo("angles %s", self.angles)
+        rospy.loginfo("ranges %s", self.ranges.shape)
+        rospy.loginfo("angles %s", self.angles.shape)
 
     @staticmethod
     def cvt_ros_scan2points(scan):
@@ -28,8 +28,8 @@ class Main(object):
         angles = np.arange(scan.angle_min, scan.angle_min + n * scan.angle_increment, scan.angle_increment)
         x = ranges * np.cos(angles)
         y = ranges * np.sin(angles)
-        plt.plot(x, y, '.')
-        plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_view.png')
+        #plt.plot(x, y, '.')
+        #plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_view.png')
         return ranges, angles
 
 

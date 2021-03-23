@@ -7,7 +7,6 @@ import tf2_ros
 
 class TF(object):
     def __init__(self):
-        rospy
         self.robot_name = "robot"
         self.lidar_x = 0
         self.lidar_y = 0
