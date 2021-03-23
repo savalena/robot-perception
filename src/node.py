@@ -35,7 +35,7 @@ class Main(object):
         self.delta_forward3 = self.motors.time_forward(meters=0.3) + self.delta_left2
 
         scan_subscriber = rospy.Subscriber("/scan", LaserScan, self.scan_callback, queue_size=1)
-        rospy.Timer(rospy.Duration(1. / 5), self.move_and_scan)
+        rospy.Timer(rospy.Duration(1. / 20), self.move_and_scan)
 
     def scan_callback(self, data):
         self.scan = data

@@ -112,10 +112,10 @@ class Motor(pyiArduinoI2Cexpander):
         return meters / (self.V * self.scale)
 
     def time_right_turn(self, rads=3.14):
-        return rads / (self.w_right * self.scale)
+        return rads / (self.w_left * self.scale)
 
     def time_left_turn(self, rads=3.14):
-        return rads / (self.w_left * self.scale)
+        return rads / (self.w_right * self.scale)
 
 if __name__ == '__main__':
     ### usage ###

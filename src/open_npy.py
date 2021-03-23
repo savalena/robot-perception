@@ -29,11 +29,11 @@ for i in range(1, delta_pos.shape[0]):
         print(1)
     coords_x.append(x)
     coords_y.append(y)
-    coords_th.append(wrap_angle(th))
+    coords_th.append(th)
 
 x = np.array(coords_x)
 y = np.array(coords_y)
-th = wrap_angle(np.array(coords_th))
+th = np.array(coords_th)
 ax.plot(coords_x, coords_y, '.')
 # fig.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/trajectory.png')
 plt.show()
