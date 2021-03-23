@@ -5,9 +5,9 @@ import geometry_msgs.msg
 import tf_conversions
 import tf2_ros
 
+
 class TF(object):
     def __init__(self):
-        rospy
         self.robot_name = "robot"
         self.lidar_x = 0
         self.lidar_y = 0
@@ -33,6 +33,8 @@ class TF(object):
 
         self.tf2_broad.sendTransform(t)
 
+
+
 if __name__ == '__main__':
     try:
         rospy.init_node('tf_node', anonymous=True)
@@ -40,4 +42,3 @@ if __name__ == '__main__':
         rospy.spin()
     except rospy.ROSInterruptException:
         pass
-
