@@ -89,10 +89,9 @@ class Motor(pyiArduinoI2Cexpander):
 
     def move_forward(self, meters):
         print("move forward")
-        t = meters / self.V
         self.set_speed(10, 10)
-        time.sleep(t)
-        self.stop()
+        #time.sleep(t)
+        #self.stop()
 
     def turn_left(self, rads):
         print("move forward")
