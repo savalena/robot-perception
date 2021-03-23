@@ -29,7 +29,7 @@ class Main(object):
         x = ranges * np.cos(angles)
         y = ranges * np.sin(angles)
         plt.plot(x, y)
-        plt.savefig('scan view')
+        plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_view.png', '.')
         return ranges, angles
 
 
