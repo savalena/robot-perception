@@ -28,8 +28,8 @@ class Main(object):
         angles = np.arange(scan.angle_min, scan.angle_min + n * scan.angle_increment, scan.angle_increment)
         x = ranges * np.cos(angles)
         y = ranges * np.sin(angles)
-        plt.plot(x, y)
-        plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_view.png', '.')
+        plt.plot(x, y, '.')
+        plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_view.png')
         return ranges, angles
 
 
