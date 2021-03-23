@@ -1,0 +1,4 @@
+<launch>
+
+	<node pkg="urg_node" name="lidar_node" type="urg_node" respawn="true" output="screen" />
+</launch>
