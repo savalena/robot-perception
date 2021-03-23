@@ -70,7 +70,7 @@ class Main(object):
         if self.delta_left > rospy.Time.now().to_sec() > self.delta_forward:
             rospy.loginfo("MOVE LEFT")
             self.motors.turn_left(self.delta_left)
-            self.new_deltas = np.array([0, 0, self.motors.w_right * (rospy.Time.now().to_sec() - self.time)])
+            self.new_deltas = np.array([0, 0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
             self.time = rospy.Time.now().to_sec()
             self.add_data()
 
@@ -86,7 +86,7 @@ class Main(object):
         if self.delta_left2 > rospy.Time.now().to_sec() > self.delta_forward2:
             rospy.loginfo("MOVE LEFT 2")
             self.motors.turn_left(self.delta_forward2)
-            self.new_deltas = np.array([0, 0, self.motors.w_right * (rospy.Time.now().to_sec() - self.time)])
+            self.new_deltas = np.array([0, 0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
             self.time = rospy.Time.now().to_sec()
             self.add_data()
 
