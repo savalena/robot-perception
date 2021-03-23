@@ -4,5 +4,5 @@
 		<param name="frame_id" value="/robot_laser" />
 	</node>
 	<node pkg="robot-perception" name="node" type="node.py" respawn="true" output="screen" />
-
+    <node pkg="robot-perception" name="tf_node" type="tf_publishers.py" respawn="true" output="screen" />
 </launch>

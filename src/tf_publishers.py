@@ -7,6 +7,7 @@ import tf2_ros
 
 class TF(object):
     def __init__(self):
+        rospy
         self.robot_name = "robot"
         self.lidar_x = 0
         self.lidar_y = 0
@@ -31,3 +32,11 @@ class TF(object):
         t.transform.rotation.w = q[3]
 
         self.tf2_broad.sendTransform(t)
+
+try:
+    rospy.init_node('tf_node', anonymous=True)
+    pf_node = TF()
+    rospy.spin()
+except rospy.ROSInterruptException:
+    pass
+
