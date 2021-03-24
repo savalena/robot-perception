@@ -144,9 +144,9 @@ class Main(object):
                 (1, 3)), axis=0)
 
         # rospy.loginfo("1: %s", self.ranges_array.shape)
-        # #rospy.loginfo("2: %s", self.ranges.shape)
-        # self.ranges_array = np.append(self.ranges_array, self.ranges, axis=0)
-        # self.angles_array = np.append(self.angles_array, self.angles, axis=0)
+        #rospy.loginfo("2: %s", self.ranges.shape)
+        self.ranges_array = np.append(self.ranges_array, self.ranges, axis=0)
+        self.angles_array = np.append(self.angles_array, self.angles, axis=0)
         self.time_array.append(rospy.Time.now().to_sec())
 
     def save_data(self):
