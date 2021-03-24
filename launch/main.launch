@@ -1,8 +1,8 @@
 <launch>
 
-	<!-- <node pkg="urg_node" name="lidar_node" type="urg_node" args="_ip_address:=192.168.0.10" respawn="true" output="screen" > 
+	 <node pkg="urg_node" name="lidar_node" type="urg_node" args="_ip_address:=192.168.0.10" respawn="true" output="screen" > 
 		<param name="frame_id" value="/map" />
-	</node> -->
+	</node> 
 	<node pkg="robot-perception" name="node" type="node.py" respawn="true" output="screen" />
 
     <!-- <node pkg="robot-perception" name="tf_node" type="tf_publishers.py" respawn="true" output="screen" /> -->

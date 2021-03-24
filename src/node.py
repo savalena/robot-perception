@@ -137,9 +137,9 @@ class Main(object):
             self.add_data()
 
         # save data
-        #if rospy.Time.now().to_sec() > self.delta_forward3:
-            #self.motors.stop()
-            #self.save_data()
+        if rospy.Time.now().to_sec() > self.delta_forward3:
+            self.motors.stop()
+            self.save_data()
 
     def add_data(self):
         self.delta_position_array = np.append(self.delta_position_array,  self.new_deltas.reshape(
@@ -152,6 +152,7 @@ class Main(object):
         self.time_array.append(rospy.Time.now().to_sec())
 
     def save_data(self):
+	rospy.loginfo("shape of %s", self.ranges_array)
         self.time_array = np.array(np.array(self.time_array))
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/position", self.delta_position_array)
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/time", self.time_array)
