@@ -17,7 +17,7 @@ class Main(object):
         N = 1000
         self.ranges_array = np.zeros((1, 1081))
         self.angles_array = np.zeros((1, 1081))
-        self.delta_position_array = np.zeros((1, 2))
+        self.delta_position_array = np.zeros((1, 3))
 
         self.new_deltas = np.zeros((1,3))
         self.th = 0
@@ -28,6 +28,7 @@ class Main(object):
         self.time = t
         self.start_time = t
         self.time_array = [t]
+	self.flag = False
 
         self.delta_forward = t + self.motors.time_forward(meters=0.8)
         self.delta_left = self.motors.time_left_turn(rads=np.pi / 2) + self.delta_forward
@@ -40,8 +41,9 @@ class Main(object):
         rospy.Timer(rospy.Duration(1. / 20), self.move_and_scan)
 
     def scan_callback(self, data):
-        self.scan = data
+        self.scan = data	
         self.ranges, self.angles = self.cvt_ros_scan2points(data)
+	self.flag = True
         # rospy.loginfo("ranges %s", self.ranges)
         # rospy.loginfo("angles %s", self.angles)
 
@@ -61,7 +63,7 @@ class Main(object):
         rospy.loginfo("delta forward %s", self.delta_forward)
 
         # move forward
-        if rospy.Time.now().to_sec() < self.delta_forward:
+        if rospy.Time.now().to_sec() < self.delta_forward and self.flag:
             rospy.loginfo("MOVE FORWARD")
             self.motors.move_forward(self.delta_forward)
 
@@ -135,18 +137,18 @@ class Main(object):
             self.add_data()
 
         # save data
-        if rospy.Time.now().to_sec() > self.delta_forward3:
-            self.motors.stop()
-            self.save_data()
+        #if rospy.Time.now().to_sec() > self.delta_forward3:
+            #self.motors.stop()
+            #self.save_data()
 
     def add_data(self):
-        self.delta_position_array = np.append(self.delta_position_array, self.new_deltas.reshape(
+        self.delta_position_array = np.append(self.delta_position_array,  self.new_deltas.reshape(
                 (1, 3)), axis=0)
 
-        # rospy.loginfo("1: %s", self.ranges_array.shape)
-        #rospy.loginfo("2: %s", self.ranges.shape)
-        self.ranges_array = np.append(self.ranges_array, self.ranges, axis=0)
-        self.angles_array = np.append(self.angles_array, self.angles, axis=0)
+        rospy.loginfo("1: %s", self.ranges_array.shape)
+        rospy.loginfo("2: %s", self.ranges.shape)
+        self.ranges_array = np.append(self.ranges_array, self.ranges.reshape((1,1081)), axis=0)
+        self.angles_array = np.append(self.angles_array, self.angles.reshape((1,1081)), axis=0)
         self.time_array.append(rospy.Time.now().to_sec())
 
     def save_data(self):
@@ -163,4 +165,5 @@ if __name__ == '__main__':
         pf_node = Main()
         rospy.spin()
     except rospy.ROSInterruptException:
-        pass
+        self.motors.stop()
+        self.save_data()

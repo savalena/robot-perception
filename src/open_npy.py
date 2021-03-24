@@ -5,16 +5,16 @@ import matplotlib.pyplot as plt
 
 def wrap_angle(angle):
     return (angle + np.pi) % (2 * np.pi) - np.pi
-# ranges = np.load('/home/ubuntu/catkin_ws/src/robot-perception/src/ranges.npy')
-# angles = np.load('/home/ubuntu/catkin_ws/src/robot-perception/src/angles.npy')
-# x = ranges[0, :] * np.cos(angles[0, :])
-# y = ranges[0, :] * np.sin(angles[0, :])
-# plt.plot(x, y, '.')
-# plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_0idx.png')
+ranges = np.load('/home/ubuntu/catkin_ws/src/robot-perception/src/ranges.npy')
+angles = np.load('/home/ubuntu/catkin_ws/src/robot-perception/src/angles.npy')
+x = ranges[2, :] * np.cos(angles[2, :])
+y = ranges[2, :] * np.sin(angles[2, :])
+plt.plot(x, y, '.')
+plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_0idx.png')
 
 fig, ax = plt.subplots()
-# delta_pos = np.load('/home/ubuntu/catkin_ws/src/robot-perception/src/position.npy')
-delta_pos = np.load('/home/alena/robot-perception/src/position.npy')
+delta_pos = np.load('/home/ubuntu/catkin_ws/src/robot-perception/src/position.npy')
+#delta_pos = np.load('/home/alena/robot-perception/src/position.npy')
 coords_x = [delta_pos[0, 0]]
 coords_y = [delta_pos[0, 1]]
 coords_th = [delta_pos[0, 2]]
@@ -22,8 +22,8 @@ th = 0
 x = 0
 y = 0
 for i in range(1, delta_pos.shape[0]):
-    x += (delta_pos[i, 0]) * np.cos(coords_th[-1])
-    y += (delta_pos[i, 0]) * np.sin(coords_th[-1])
+    x += (delta_pos[i, 0]) 
+    y += (delta_pos[i, 1]) 
     th += delta_pos[i, 2]
     if i == 28:
         print(1)
