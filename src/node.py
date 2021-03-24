@@ -108,7 +108,7 @@ class Main(object):
         if self.delta_left2 > rospy.Time.now().to_sec() > self.delta_forward2:
             rospy.loginfo("MOVE LEFT 2")
             self.motors.turn_left(self.delta_forward2)
-            
+
             delta = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
             dx = (delta[0]) * np.cos(self.th)
             dy = (delta[0]) * np.sin(self.th)
@@ -155,12 +155,6 @@ class Main(object):
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/time", self.time_array)
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/ranges", self.ranges_array)
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/angles", self.angles_array)
-
-    def calculate_odom(self, delta):
-        x += (delta[0]) * np.cos(self.th)
-        y += (delta[0]) * np.sin(self.th)
-        th += delta[1]
-        return x, y, th
 
 
 if __name__ == '__main__':
