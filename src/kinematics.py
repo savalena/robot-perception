@@ -11,7 +11,7 @@ class Motor(pyiArduinoI2Cexpander):
         super(pyiArduinoI2Cexpander, self).__init__(0x08)
         self.V = 0.142  # m/sec
         self.w_right = -0.837  # rad/sec
-        self.w_left =  0.68 #0.897
+        self.w_left =  0.71 #0.897
         self.LEFT_CONST = 1515
         self.RIGHT_CONST = 1415
         self.PIN_LEFT = pin_left

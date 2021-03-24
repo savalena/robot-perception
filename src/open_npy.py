@@ -8,8 +8,8 @@ def wrap_angle(angle):
 
 ranges = np.load('/home/ubuntu/catkin_ws/src/robot-perception/src/ranges.npy')
 angles = np.load('/home/ubuntu/catkin_ws/src/robot-perception/src/angles.npy')
-x = ranges[0, :] * np.cos(angles[0, :])
-y = ranges[0, :] * np.sin(angles[0, :])
+x = ranges[1, :] * np.cos(angles[1, :])
+y = ranges[1, :] * np.sin(angles[1, :])
 plt.plot(x, y, '.')
 plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_0idx.png')
 

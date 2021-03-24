@@ -63,7 +63,7 @@ class Main(object):
     def move_and_scan(self, event):
 
         # move forward
-        if rospy.Time.now().to_sec() < self.delta_forward: # and self.flag:
+        if rospy.Time.now().to_sec() < self.delta_forward and self.flag:
             rospy.loginfo("MOVE FORWARD")
             self.motors.move_forward()
 
@@ -193,8 +193,8 @@ class Main(object):
 
         #rospy.loginfo("1: %s", self.ranges_array.shape)
         #rospy.loginfo("2: %s", self.ranges.shape)
-        #self.ranges_array = np.append(self.ranges_array, self.ranges.reshape((1,1081)), axis=0)
-        #self.angles_array = np.append(self.angles_array, self.angles.reshape((1,1081)), axis=0)
+        self.ranges_array = np.append(self.ranges_array, self.ranges.reshape((1,1081)), axis=0)
+        self.angles_array = np.append(self.angles_array, self.angles.reshape((1,1081)), axis=0)
         self.time_array.append(rospy.Time.now().to_sec())
 
     def save_data(self):
