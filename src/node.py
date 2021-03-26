@@ -14,7 +14,7 @@ class Main(object):
         self.ranges = None
         self.angles = None
 
-        N = 1000
+        # arrays for storing data  
         self.ranges_array = np.zeros((1, 1081))
         self.angles_array = np.zeros((1, 1081))
         self.delta_position_array = np.zeros((1, 2))
@@ -28,7 +28,7 @@ class Main(object):
         self.time = t
         self.start_time = t
         self.time_array = [t]
-	self.flag = False
+		self.is_scan_obtained = False
 
         self.delta_forward = t + self.motors.time_forward(meters=0.5)
         self.delta_left = self.motors.time_left_turn(rads=np.pi / 2) + self.delta_forward
@@ -43,35 +43,28 @@ class Main(object):
         self.timer = rospy.Timer(rospy.Duration(1. / 10), self.move_and_scan)
 
     def scan_callback(self, data):
+    	# obtain the scan
         self.scan = data	
         self.ranges, self.angles = self.cvt_ros_scan2points(data)
-	self.flag = True
-        # rospy.loginfo("ranges %s", self.ranges)
-        # rospy.loginfo("angles %s", self.angles)
+		self.is_scan_obtained = True
 
     @staticmethod
     def cvt_ros_scan2points(scan):
+    	# parse ros scans in angle and ranges
         ranges = np.array(scan.ranges)
         n = ranges.shape[0]
         angles = np.arange(scan.angle_min, scan.angle_min + n * scan.angle_increment, scan.angle_increment)
-        # x = ranges * np.cos(angles)
-        # y = ranges * np.sin(angles)
-        # plt.plot(x, y, '.')
-        # plt.savefig('/home/ubuntu/catkin_ws/src/robot-perception/src/scan_view.png')
         return ranges, angles
 
     def move_and_scan(self, event):
 
         # move forward
-        if rospy.Time.now().to_sec() < self.delta_forward and self.flag:
+        if rospy.Time.now().to_sec() < self.delta_forward and self.is_scan_obtained:
             rospy.loginfo("MOVE FORWARD")
             self.motors.move_forward()
 
             delta = np.array([self.motors.V * (rospy.Time.now().to_sec() - self.time), 0])
-            #dx = (delta[0]) * np.cos(self.th)
-            #dy = (delta[0]) * np.sin(self.th)
-            #dth = delta[1]
-            #self.th += delta[1]
+
             self.new_deltas = delta
 
             self.time = rospy.Time.now().to_sec()
@@ -82,12 +75,7 @@ class Main(object):
             rospy.loginfo("MOVE LEFT")
             self.motors.turn_left()
 
-            delta = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
-            dx = (delta[0]) * np.cos(self.th)
-            dy = (delta[0]) * np.sin(self.th)
-            dth = delta[1]
-            self.th += delta[1]
-            self.new_deltas = delta
+            self.new_deltas = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
 
             self.time = rospy.Time.now().to_sec()
             self.add_data()
@@ -97,13 +85,8 @@ class Main(object):
             rospy.loginfo("MOVE FORWARD 2")
             self.motors.move_forward()
 	
-            delta = np.array([self.motors.V * (rospy.Time.now().to_sec() - self.time), 0])
+            self.new_deltas = np.array([self.motors.V * (rospy.Time.now().to_sec() - self.time), 0])
 
-            dx = (delta[0]) * np.cos(self.th)
-            dy = (delta[0]) * np.sin(self.th)
-            dth = delta[1]
-            self.th += delta[1]
-            self.new_deltas = delta
             self.time = rospy.Time.now().to_sec()
             self.add_data()
 
@@ -112,12 +95,7 @@ class Main(object):
             rospy.loginfo("MOVE LEFT 2")
             self.motors.turn_left()
 
-            delta = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
-            dx = (delta[0]) * np.cos(self.th)
-            dy = (delta[0]) * np.sin(self.th)
-            dth = delta[1]
-            self.th += delta[1]
-            self.new_deltas = delta
+            self.new_deltas = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
 
             self.time = rospy.Time.now().to_sec()
             self.add_data()
@@ -127,12 +105,7 @@ class Main(object):
             rospy.loginfo("MOVE FORWARD 3")
             self.motors.move_forward()
 
-            delta = np.array([self.motors.V * (rospy.Time.now().to_sec() - self.time), 0])
-            dx = (delta[0]) * np.cos(self.th)
-            dy = (delta[0]) * np.sin(self.th)
-            dth = delta[1]
-            self.th += delta[1]
-            self.new_deltas =delta
+            self.new_deltas = np.array([self.motors.V * (rospy.Time.now().to_sec() - self.time), 0])
 
             self.time = rospy.Time.now().to_sec()
             self.add_data()
@@ -142,12 +115,7 @@ class Main(object):
             rospy.loginfo("MOVE LEFT 3")
             self.motors.turn_left()
 
-            delta = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
-            dx = (delta[0]) * np.cos(self.th)
-            dy = (delta[0]) * np.sin(self.th)
-            dth = delta[1]
-            self.th += delta[1]
-            self.new_deltas =delta
+            self.new_deltas = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
 
             self.time = rospy.Time.now().to_sec()
             self.add_data()
@@ -157,12 +125,7 @@ class Main(object):
             rospy.loginfo("MOVE FORWARD 4")
             self.motors.move_forward()
 
-            delta = np.array([self.motors.V * (rospy.Time.now().to_sec() - self.time), 0])
-            dx = (delta[0]) * np.cos(self.th)
-            dy = (delta[0]) * np.sin(self.th)
-            dth = delta[1]
-            self.th += delta[1]
-            self.new_deltas = delta
+            self.new_deltas  = np.array([self.motors.V * (rospy.Time.now().to_sec() - self.time), 0])
 
             self.time = rospy.Time.now().to_sec()
             self.add_data()
@@ -172,12 +135,7 @@ class Main(object):
             rospy.loginfo("MOVE LEFT 4")
             self.motors.turn_left()
 
-            delta = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
-            dx = (delta[0]) * np.cos(self.th)
-            dy = (delta[0]) * np.sin(self.th)
-            dth = delta[1]
-            self.th += delta[1]
-            self.new_deltas = delta
+            self.new_deltas = np.array([0, self.motors.w_left * (rospy.Time.now().to_sec() - self.time)])
 
             self.time = rospy.Time.now().to_sec()
             self.add_data()
@@ -185,33 +143,30 @@ class Main(object):
 
         if rospy.Time.now().to_sec() > self.delta_left4:
             self.motors.stop()
-            self.save_data()
+            self.timer.shutdown()
 
     def add_data(self):
+    	# append data to the numpy array
         self.delta_position_array = np.append(self.delta_position_array,  self.new_deltas.reshape(
                 (1, 2)), axis=0)
-
-        #rospy.loginfo("1: %s", self.ranges_array.shape)
-        #rospy.loginfo("2: %s", self.ranges.shape)
         self.ranges_array = np.append(self.ranges_array, self.ranges.reshape((1,1081)), axis=0)
         self.angles_array = np.append(self.angles_array, self.angles.reshape((1,1081)), axis=0)
         self.time_array.append(rospy.Time.now().to_sec())
 
     def save_data(self):
-	rospy.loginfo("shape of %s", self.ranges_array)
+		# save data as npy
         self.time_array = np.array(np.array(self.time_array))
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/position", self.delta_position_array)
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/time", self.time_array)
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/ranges", self.ranges_array)
         np.save("/home/ubuntu/catkin_ws/src/robot-perception/src/angles", self.angles_array)
-        self.timer.shutdown()	
 
 
 
 if __name__ == '__main__':
     try:
-        rospy.init_node('node', anonymous=True)
-        pf_node = Main()
+        rospy.init_node('main_node', anonymous=True)
+        main_node = Main()
         rospy.spin()
     except rospy.ROSInterruptException:
         self.motors.stop()
